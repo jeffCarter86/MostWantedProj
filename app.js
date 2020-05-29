@@ -121,6 +121,21 @@ function searchByTraits(peopleList) {
 
 }
 
+function searchByTrait(people, trait, criteria) {
+
+    let foundPerson = people.filter(function (person) {
+        if (person[trait] === criteria) {
+
+            return true;
+        }
+        else {
+            return false;
+        }
+    })
+
+    return foundPerson;
+}
+
 // alerts a list of people
 function displayPeople(people){
   alert(people.map(function(person){
