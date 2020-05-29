@@ -4,22 +4,27 @@ Build all of your functions for displaying and gathering information below (GUI)
 */
 
 // app is the function called to start the entire application
-function app(people){
-  let searchType = promptFor("Do you know the name of the person you are looking for? Enter 'yes' or 'no'", yesNo).toLowerCase();
-  let searchResults;
-  switch(searchType){
-    case 'yes':
-          searchResults = searchByName(people);
-          // Call the mainMenu function ONLY after you find the SINGLE person you are looking for
-          mainMenu(searchResults, people);
-          break;
-      case 'no':
-          searchResults = searchByTraits(people);
-          break;
-      default:
-          app(people); // restart app
-          break;
-  }
+function app(people) {
+    let searchType = promptFor("Do you know the name of the person you are looking for? Enter 'yes' or 'no'", yesNo).toLowerCase();
+    let searchResults;
+    switch (searchType) {
+        case 'yes':
+            searchResults = searchByName(people);
+            //searchResults = searchByName(people);
+            // Call the mainMenu function ONLY after you find the SINGLE person you are looking for
+            mainMenu(searchResults, people);
+            break;
+        case 'no':
+            searchResults = searchByTraits(people);
+            break;
+        default:
+            app(people); // restart app
+            break;
+
+
+    }
+    displayPeople(searchResults);
+}
   
   // Call the mainMenu function ONLY after you find the SINGLE person you are looking for
   mainMenu(searchResults, people);
@@ -37,24 +42,27 @@ function mainMenu(person, people){
 
   let displayOption = prompt("Found " + person.firstName + " " + person.lastName + " . Do you want to know their 'info', 'family', or 'descendants'? Type the option you want or 'restart' or 'quit'");
 
-  switch(displayOption){
-    case "info":
-    // TODO: get person's info
-    break;
-    case "family":
-    // TODO: get person's family
-    break;
-    case "descendants":
-    // TODO: get person's descendants
-    break;
-    case "restart":
-    app(people); // restart
-    break;
-    case "quit":
-    return; // stop execution
-    default:
-    return mainMenu(person, people); // ask again
-  }
+    switch (displayOption) {
+        case "info":
+            displayPerson(person);
+            return mainMenu(person, people);
+            break;
+        case "family":
+            displayFamily(person, people);
+            return mainMenu(person, people);
+            break;
+        case "descendants":
+            displayPeople(searchForDescendants(person, people));
+            return mainMenu(person, people);
+            break;
+        case "restart":
+            app(people); // restart
+            break;
+        case "quit":
+            return; // stop execution
+        default:
+            return mainMenu(person, people); // ask again
+    }
 }
 
 function searchByName(people){
