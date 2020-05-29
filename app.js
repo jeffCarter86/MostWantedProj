@@ -9,14 +9,16 @@ function app(people){
   let searchResults;
   switch(searchType){
     case 'yes':
-      searchResults = searchByName(people);
-      break;
-    case 'no':
-      // TODO: search by traits
-      break;
+          searchResults = searchByName(people);
+          // Call the mainMenu function ONLY after you find the SINGLE person you are looking for
+          mainMenu(searchResults, people);
+          break;
+      case 'no':
+          searchResults = searchByTraits(people);
+          break;
       default:
-    app(people); // restart app
-      break;
+          app(people); // restart app
+          break;
   }
   
   // Call the mainMenu function ONLY after you find the SINGLE person you are looking for
