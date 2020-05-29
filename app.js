@@ -65,20 +65,60 @@ function mainMenu(person, people){
     }
 }
 
-function searchByName(people){
-  let firstName = promptFor("What is the person's first name?", chars);
-  let lastName = promptFor("What is the person's last name?", chars);
+function searchByName(people) {
+    let firstName = promptFor("What is the person's first name?", chars);
+    let lastName = promptFor("What is the person's last name?", chars);
 
-  let foundPerson = people.filter(function(person){
-    if(person.firstName === firstName && person.lastName === lastName){
-      return true;
+    let foundPerson = people.filter(function (person) {
+        if (person.firstName === firstName && person.lastName === lastName) {
+
+            return true;
+        }
+        else {
+            return false;
+        }
+    })
+
+    foundPerson = foundPerson[0];
+    return foundPerson;
+}
+
+function searchByTraits(peopleList) {
+
+    let genderCriteria = promptFor("What is their gender? Type 'male', 'female', or none if you don't know.", gender);
+    let birthdayCriteria = promptFor("What is their birthday? (N/NN/NNNN), or none if you don't know.", birthday);
+    let heightCriteria = promptFor("What is their height in inches? or none if you don't know.", height);
+    let weightCriteria = promptFor("What is their weight in pounds? or none if you don't know.", weight);
+    let eyecolorCriteria = promptFor("What is their eye color? (brown, black, hazel, blue, or green), or none if you don't know.", eyeColor);
+    let occupationCriteria = promptFor("What is their occupation? (programmer, doctor, politician, nurse, assistant, landscaper, architect, or student?), or none if you don't know.", occupation);
+
+    if (genderCriteria != "none") {
+        peopleList = searchByTrait(peopleList, "gender", genderCriteria);
     }
-    else{
-      return false;
+
+    if (birthdayCriteria != "none") {
+        peopleList = searchByTrait(peopleList, "dob", birthdayCriteria);
     }
-  })
-  // TODO: find the person using the name they entered
-  return foundPerson;
+
+    if (heightCriteria != "none") {
+        peopleList = searchByTrait(peopleList, "height", heightCriteria);
+    }
+
+    if (weightCriteria != "none") {
+        peopleList = searchByTrait(peopleList, "weight", weightCriteria);
+    }
+
+    if (eyecolorCriteria != "none") {
+        peopleList = searchByTrait(peopleList, "eyeColor", eyecolorCriteria);
+    }
+
+    if (occupationCriteria != "none") {
+        peopleList = searchByTrait(peopleList, "occupation", occupationCriteria);
+    }
+
+    return peopleList;
+
+
 }
 
 // alerts a list of people
