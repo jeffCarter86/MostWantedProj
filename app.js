@@ -156,13 +156,19 @@ function displayPeople(people, relationship){
       }
 
 
-function displayPerson(person){
-  // print all of the information about a person:
-  // height, weight, age, name, occupation, eye color.
-  let personInfo = "First Name: " + person.firstName + "\n";
-  personInfo += "Last Name: " + person.lastName + "\n";
-  // TODO: finish getting the rest of the information to display
-  alert(personInfo);
+function displayPerson(person) {
+    // print all of the information about a person:
+    // height, weight, age, name, occupation, eye color.
+    let personInfo = "First Name: " + person.firstName + "\n";
+    personInfo += "Last Name: " + person.lastName + "\n";
+    personInfo += "Gender: " + person.gender + "\n";
+    personInfo += "DOB: " + person.dob + "\n";
+    personInfo += "Height: " + person.height + "\n";
+    personInfo += "Weight: " + person.weight + "\n";
+    personInfo += "Eye Color: " + person.eyeColor + "\n";
+    personInfo += "Occupation: " + person.occupation + "\n";
+    alert(personInfo);
+
 }
 
 // function that prompts and validates user input
@@ -181,4 +187,40 @@ function yesNo(input){
 // helper function to pass in as default promptFor validation
 function chars(input){
   return true; // default validation only
+}
+
+function gender(input) {
+    if (input.toLowerCase() === "male" || input.toLowerCase() === "female" || input.toLowerCase() === "none") {
+        return true;
+    }
+}
+
+function birthday(input) {
+    let pattern = /^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/;
+    //alert(reducedInput);
+    if (pattern.test(input) || input.toLowerCase() === "none") {
+        return true;
+    }
+}
+
+function height(input) {
+    if ((input >= 1 && input <= 200) || input.toLowerCase() === "none") {
+        return true;
+    }
+}
+function weight(input) {
+    if ((input >= 1 && input <= 2000) || input.toLowerCase() === "none") {
+        return true;
+    }
+}
+function eyeColor(input) {
+    if (input.toLowerCase() === "blue" || input.toLowerCase() === "brown" || input.toLowerCase() === "hazel" || input.toLowerCase() === "green" || input.toLowerCase() === "black" || input.toLowerCase() === "none") {
+        return true;
+    }
+}
+
+function occupation(input) {
+    if (input.toLowerCase() === "doctor" || input.toLowerCase() === "politician" || input.toLowerCase() === "programmer" || input.toLowerCase() === "nurse" || input.toLowerCase() === "assistant" || input.toLowerCase() === "landscaper" || input.toLowerCase() === "architect" || input.toLowerCase() === "student" || input.toLowerCase() === "none") {
+        return true;
+    }
 }
