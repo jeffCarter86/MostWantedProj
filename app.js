@@ -137,11 +137,24 @@ function searchByTrait(people, trait, criteria) {
 }
 
 // alerts a list of people
-function displayPeople(people){
-  alert(people.map(function(person){
-    return person.firstName + " " + person.lastName;
-  }).join("\n"));
-}
+function displayPeople(people, relationship){
+    if(relationship != null && people.length > 0){
+      alert(people.map(function(person){
+      return relationship + ": " + person.firstName + " " + person.lastName;
+    }).join("\n"));
+    }
+    else if(relationship == null && people.length > 0){
+      alert(people.map(function(person){
+      return person.firstName + " " + person.lastName;
+    }).join("\n"));
+    }
+    else if(relationship != null && people.length == 0){    
+        alert("no results for " + relationship + "s");
+      }
+      else{
+        alert("no results. click 'ok' to continue");
+      }
+
 
 function displayPerson(person){
   // print all of the information about a person:
