@@ -203,6 +203,18 @@ function displayPerson(person) {
         return foundSiblings;
     }
 
+    function searchForSpouse(person, people) {
+        let foundSpouse = people.filter(function (people) {
+            if (people.currentSpouse == person.id) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        })
+        return foundSpouse;
+    }
+
 // function that prompts and validates user input
 function promptFor(question, valid){
   do{
