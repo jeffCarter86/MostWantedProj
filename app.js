@@ -179,6 +179,20 @@ function displayPerson(person) {
 
     }
 
+    function searchForParents(person, people) {
+        let foundParents = people.filter(function (people) {
+            if (person.parents.includes(people.id)) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        })
+        return foundParents;
+    }
+
+
+
 // function that prompts and validates user input
 function promptFor(question, valid){
   do{
