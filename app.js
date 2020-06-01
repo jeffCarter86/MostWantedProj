@@ -171,6 +171,19 @@ function displayPerson(person) {
 
     }
 
+    function displayDescendants(person, people){
+        let descendants = people.parents.filter(function(people){
+            if (people.parents != person.parents ) {
+            return false;
+            }
+            else{
+                alert(descendants);
+
+            }
+            
+        }
+    }
+
 
     function displayFamily(person, people) {
         displayPeople(searchForParents(person, people), "Parent");
