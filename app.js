@@ -169,7 +169,15 @@ function displayPerson(person) {
     personInfo += "Occupation: " + person.occupation + "\n";
     alert(personInfo);
 
-}
+    }
+
+
+    function displayFamily(person, people) {
+        displayPeople(searchForParents(person, people), "Parent");
+        displayPeople(searchForSiblings(person, people), "Sibling");
+        displayPeople(searchForSpouse(person, people), "Spouse");
+
+    }
 
 // function that prompts and validates user input
 function promptFor(question, valid){
