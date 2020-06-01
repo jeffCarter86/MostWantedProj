@@ -191,7 +191,17 @@ function displayPerson(person) {
         return foundParents;
     }
 
-
+    function searchForSiblings(person, people) {
+        let foundSiblings = people.filter(function (people) {
+            for (let i = 0; i < people.parents.length; i++) {
+                if (person.parents.includes(people.parents[i]) && person.id !== people.id) {
+                    return true;
+                }
+            }
+            return false;
+        })
+        return foundSiblings;
+    }
 
 // function that prompts and validates user input
 function promptFor(question, valid){
