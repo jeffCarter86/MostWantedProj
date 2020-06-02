@@ -24,7 +24,7 @@ function app(people) {
 
     }
     displayPeople(searchResults);
-}
+
   
   // Call the mainMenu function ONLY after you find the SINGLE person you are looking for
   mainMenu(searchResults, people);
@@ -154,7 +154,7 @@ function displayPeople(people, relationship){
       else{
         alert("no results. click 'ok' to continue");
       }
-
+}
 
 function displayPerson(person) {
     // print all of the information about a person:
@@ -169,64 +169,67 @@ function displayPerson(person) {
     personInfo += "Occupation: " + person.occupation + "\n";
     alert(personInfo);
 
+}
+
+function searchForDescendants(person, people){
+    let foundDescendants = new Array;
+    for(let i = 0; i < people.length; i++){
+      if(people[i].parents.includes(person.id)){
+        foundDescendants.push(people[i]);
+      }
     }
+    for(let i = 0; i < foundDescendants.length; i++){
+      let nextGen = searchForDescendants(foundDescendants[i], people);
+      nextGen.forEach(function(el){
+        foundDescendants.push(el);
+      });    
+    }
+    return foundDescendants;
+  }
 
-    function displayDescendants(person, people){
-        let descendants = people.parents.filter(function(people){
-            if (people.parents != person.parents ) {
-            return false;
-            }
-            else{
-                alert(descendants);
 
-            }
-            
+function displayFamily(person, people) {
+    displayPeople(searchForParents(person, people), "Parent");
+    displayPeople(searchForSiblings(person, people), "Sibling");
+    displayPeople(searchForSpouse(person, people), "Spouse");
+
+}
+
+function searchForParents(person, people) {
+    let foundParents = people.filter(function (people) {
+        if (person.parents.includes(people.id)) {
+            return true;
         }
-    }
-
-
-    function displayFamily(person, people) {
-        displayPeople(searchForParents(person, people), "Parent");
-        displayPeople(searchForSiblings(person, people), "Sibling");
-        displayPeople(searchForSpouse(person, people), "Spouse");
-
-    }
-
-    function searchForParents(person, people) {
-        let foundParents = people.filter(function (people) {
-            if (person.parents.includes(people.id)) {
-                return true;
-            }
-            else {
-                return false;
-            }
-        })
-        return foundParents;
-    }
-
-    function searchForSiblings(person, people) {
-        let foundSiblings = people.filter(function (people) {
-            for (let i = 0; i < people.parents.length; i++) {
-                if (person.parents.includes(people.parents[i]) && person.id !== people.id) {
-                    return true;
-                }
-            }
+        else {
             return false;
-        })
-        return foundSiblings;
-    }
+        }
+    })
+    return foundParents;
+}
 
-    function searchForSpouse(person, people) {
-        let foundSpouse = people.filter(function (people) {
-            if (people.currentSpouse == person.id) {
+function searchForSiblings(person, people) {
+    let foundSiblings = people.filter(function (people) {
+        for (let i = 0; i < people.parents.length; i++) {
+            if (person.parents.includes(people.parents[i]) && person.id !== people.id) {
                 return true;
             }
-            else {
-                return false;
-            }
-        })
-        return foundSpouse;
-    }
+        }
+        return false;
+    })
+    return foundSiblings;
+}
+
+function searchForSpouse(person, people) {
+    let foundSpouse = people.filter(function (people) {
+        if (people.currentSpouse == person.id) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    })
+    return foundSpouse;
+}
 
 // function that prompts and validates user input
 function promptFor(question, valid){
@@ -277,7 +280,10 @@ function eyeColor(input) {
 }
 
 function occupation(input) {
-    if (input.toLowerCase() === "doctor" || input.toLowerCase() === "politician" || input.toLowerCase() === "programmer" || input.toLowerCase() === "nurse" || input.toLowerCase() === "assistant" || input.toLowerCase() === "landscaper" || input.toLowerCase() === "architect" || input.toLowerCase() === "student" || input.toLowerCase() === "none") {
+    if (input.toLowerCase() === "doctor" || input.toLowerCase() === "politician" || 
+          input.toLowerCase() === "programmer" || input.toLowerCase() === "nurse" ||
+          input.toLowerCase() === "assistant" || input.toLowerCase() === "landscaper" ||
+           input.toLowerCase() === "architect" || input.toLowerCase() === "student" || input.toLowerCase() === "none") {
         return true;
     }
 }
